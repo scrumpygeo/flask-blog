@@ -405,3 +405,25 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
 ```
 
     - and do same for email validation
+
+5. Login
+   - pipenv install flask-login # helps with user sessions
+   - import into init: `from flask_login import LoginManager`
+   - create instance: `login_manager = LoginManager(app)`
+     - add functionality to our db model & manager handles all our sessions
+   - goto models file
+     - import login_manager: `from flaskblog import db, login_manager`
+     - create function e decorator called user_loader
+
+```
+      @login_manager.user_loader
+      def load_user(user_id):
+          return User.query.get(int(user_id))
+
+
+```
+
+    - from flask_login import UserMixin   then passUserMixin to User class.
+    - now the UserMixin & login_manager extensions can manage our sessions for us
+
+6. modify login route (b4 we were checking hardcoded uname and pwd).

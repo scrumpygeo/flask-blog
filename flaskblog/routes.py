@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, flash, redirect
 from flaskblog import app, db, bcrypt
 from flaskblog.forms import RegistrationForm, LoginForm
 from flaskblog.models import User, Post
+from flask_login import login_user
 
 # Dummy data:
 posts = [
@@ -50,9 +51,10 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if form.email.data == 'admin@blog.me' and form.password.data == '123456':
-            flash('You have been logged in!', 'success')
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember.data)
             return redirect(url_for('home'))
         else:
-            flash('Login unsuccessfull', 'danger')
+            flash('Login unsuccessfull. Please check email and password.', 'danger')
     return render_template('login.html', title="Login", form=form)
