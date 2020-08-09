@@ -439,5 +439,18 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
 ```
 
 7. create logout route
+
    - import logout_user
    - add logout to navigation template: layout.html
+
+8. make it so if not logged in it takes u to login page if u try do something.
+   - create account route: ``@app.route('/account')
+   - create template for a/c: account.html
+   - copy in the account template stuff to start
+   - in navigation (in template) put menu link user will see if logged in, above the link for logout:
+   - `<a class="nav-item nav-link" href="{{url_for('account')}}">Account</a>`
+   - need to add a check to make sure user cant type /account in url otherwise he will not get the menu items:
+   - use login_required decorator in routes:
+     - add `@login_required` in line under `@app.route('/account')`
+     - in init file, under login_manager line set login_manager route: `login_manager.login_view = 'login'`
+       - if utype in /account, it will redirect u to login page if not logged it & to your page if u r
