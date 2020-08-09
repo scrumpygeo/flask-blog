@@ -377,7 +377,31 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
 
 2. in `__init__.py`, `from flask_bcrypt import Bcrypt` then `bcrypt = Bcrypt(app)`
 3. in routes.py, where flash says form valid on submit, create the a/c (make sure u import db, bcrypt)
+
    - `hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')`
    - `user = User(username=form.username.data, email=form.email.data, password=hashed_password)`
    - `db.session.add(user)`
    - `db.session.commit()`
+
+4. We need to add front end validation so user doesnt register with existing name
+
+   - go into forms.py
+   - to RegistrationForm add:
+
+```
+  this is basic format of validation function:
+
+      def validate_field(self, field):
+        if True:
+          raise ValidationError('Validation Message')
+
+  actual eg:
+
+      def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+          if user:
+            raise ValidationError('That username is taken. Please choose another.')
+
+```
+
+    - and do same for email validation
