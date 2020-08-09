@@ -359,3 +359,25 @@ So if you do User.query.all() and Post.query.all() then u should get [] back.
   - import routes into the `__init__.py` file, however u need to import it **AFTER** the initialization or u get circular import probs
 
 **NB** where vscode automatically puts imports at top on save, add this `"python.formatting.autopep8Args": ["--ignore","E402"]` to editor settings, eg in `C:\Users\USERNAME\AppData\Roaming\Code\User\settings.json`
+
+Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
+
+## 6. User Authentication
+
+1. pipenv install flask-bcrypt
+
+   - from flask_bcrypt import Bcrypt (in python shell)
+   - bcrypt = Bcrypt() # instantiate
+   - bcrypt.generate_password_hash('testing') --> `b'$2b$12$zCM4KJS8v8a3xw3UKusXsOXosfgNSe3CsD6VbiiPJiy1XqpxK9m.K'` where b means byte
+   - to get it into string form, use:
+     `hashed_pw = bcrypt.generate_password_hash('testing').decode('utf-8')` --> `$2b$12$hwXC9a0c2UhfUyrtQ/tbOuV5spx24n/4OA26n33th4pW7h5AIabe2`
+   - NB these return different hashes even when repeated, so if stolen thief cant use
+   - -> use a different method to check the pwd:
+   - bcrypt.check_password_hash(hashed_pw, 'testing') ==> True
+
+2. in `__init__.py`, `from flask_bcrypt import Bcrypt` then `bcrypt = Bcrypt(app)`
+3. in routes.py, where flash says form valid on submit, create the a/c (make sure u import db, bcrypt)
+   - `hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')`
+   - `user = User(username=form.username.data, email=form.email.data, password=hashed_password)`
+   - `db.session.add(user)`
+   - `db.session.commit()`
