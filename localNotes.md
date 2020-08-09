@@ -437,3 +437,7 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
         return redirect(url_for('home'))
 
 ```
+
+7. create logout route
+   - import logout_user
+   - add logout to navigation template: layout.html
