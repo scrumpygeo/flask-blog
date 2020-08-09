@@ -427,3 +427,13 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
     - now the UserMixin & login_manager extensions can manage our sessions for us
 
 6. modify login route (b4 we were checking hardcoded uname and pwd).
+
+- in routes, import current_user extension so we can test if we logged in :
+
+```
+  add this to register & login routes:
+
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+
+```
