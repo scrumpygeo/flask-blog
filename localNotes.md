@@ -444,6 +444,7 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - add logout to navigation template: layout.html
 
 8. make it so if not logged in it takes u to login page if u try do something.
+
    - create account route: ``@app.route('/account')
    - create template for a/c: account.html
    - copy in the account template stuff to start
@@ -454,3 +455,8 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
      - add `@login_required` in line under `@app.route('/account')`
      - in init file, under login_manager line set login_manager route: `login_manager.login_view = 'login'`
        - if utype in /account, it will redirect u to login page if not logged it & to your page if u r
+       - in init file add `login_manager.login_message_category = 'info'` which is bootstrap info alert blue color
+
+9. if u try to access a page & ur not logged in it redirects u to login page. Then when u log in it takes u to account page. It would be nice for it to take u to the page uwanted to go to originally.
+   - currently it has /login?next=%2Faccount in url when it tells u to log in. So access this query param & direct user there if it exists
+   - `next_page = request.args.get('next')` - if u used args[0] it would throw an error if there were none, so instead use get() method.
