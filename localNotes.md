@@ -513,3 +513,7 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
 
     - NB with eg this, `f_name, f_ext = os.path.splitext(form_picture.filename)` we wont be using f_name so we can use `_` instead, (so editor won't complain about unused var): `_, f_ext = os.path.splitext(form_picture.filename)`
     - app.root_path gives us full path up to package dir (needs import os)
+
+6. How to scale down image sizes automatically.
+   - use package called Pillow pipenv install Pillow (capital P)
+   - import into routes
