@@ -476,3 +476,15 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - now add to route: in routes, create instance of the form, ie `form = UpdateAccountForm()` and pass it into the template via form=form, here:
    - `return render_template('account.html', title="Account", image_file=image_file, form=form)`
    - grab code from register.html template and use that modified into the account template
+4. make it so editaccount form has data in it when it loads
+   - go to routes.py : add `methods=['GET', 'POST']` account route
+   - also add this to the route:
+
+```
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Your account has been updated', 'success')
+        return redirect(url_for('account'))
+```
