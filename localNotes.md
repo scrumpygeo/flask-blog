@@ -488,3 +488,28 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
         flash('Your account has been updated', 'success')
         return redirect(url_for('account'))
 ```
+
+5. Changing profile picture
+
+   - add new field to UpdateAccountForm
+   - from flask_wtf.file import FileField, FileAllowed
+   - picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])]) # where field label is in the ( )
+   - then go to account.html template to add in the field:
+
+```<div class="form-group">
+                    {{ form.picture.label() }}
+                    {{ form.picture(class="form-control-file") }}
+                    {% if form.picture.errors %}
+                        {% for error in form.picture.errors %}
+                            <span class="text-danger">{{ error }}</span><br />
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+```
+
+    - at top where we have `<form action="" method="POST">, ` **we need to add an encoding type** `enctype="multipart/form-data"`:
+    - <form action="" method="POST" enctype="multipart/form-data">
+
+    - NB with eg this, `f_name, f_ext = os.path.splitext(form_picture.filename)` we wont be using f_name so we can use `_` instead, (so editor won't complain about unused var): `_, f_ext = os.path.splitext(form_picture.filename)`
+    - app.root_path gives us full path up to package dir (needs import os)

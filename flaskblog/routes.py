@@ -1,3 +1,5 @@
+import os
+import secrets
 from flask import Flask, render_template, url_for, flash, redirect, request
 from flaskblog import app, db, bcrypt
 from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm
@@ -58,7 +60,8 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-            next_page = request.args.get('next')
+            # added '/home' as was sending me to /None:
+            next_page = request.args.get('next', '/home')
             return redirect(next_page) if next else redirect(url_for('home'))
         else:
             flash('Login unsuccessfull. Please check email and password.', 'danger')
@@ -71,11 +74,27 @@ def logout():
     return redirect(url_for('home'))
 
 
+def save_picture(form_picture):
+    # rename picture with random nr
+    random_hex = secrets.token_hex(8)
+    # make sure u save with same extension as uploaded: grab f_ext,dont need f_name so use _
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(
+        app.root_path, 'static/profile_pics', picture_fn)
+    form_picture.save(picture_path)
+
+    return picture_fn
+
+
 @app.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
