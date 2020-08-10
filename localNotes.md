@@ -471,3 +471,8 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - `image_file = url_for('static', filename='profile_pics/' + current_user.image_file )`
    - `return render_template('account.html', title="Account", image_file=image_file)`
    - now in template we can use image file as source: `<img class="rounded-circle account-img" src="{{ image_file }}">`
+3. We want to allow update of info so we need forms: goto forms.py & copy registration form as a model.
+   - nb wrt validation: if u check username is unique, it count's their current, so only check if they changed it
+   - now add to route: in routes, create instance of the form, ie `form = UpdateAccountForm()` and pass it into the template via form=form, here:
+   - `return render_template('account.html', title="Account", image_file=image_file, form=form)`
+   - grab code from register.html template and use that modified into the account template
