@@ -458,5 +458,16 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
        - in init file add `login_manager.login_message_category = 'info'` which is bootstrap info alert blue color
 
 9. if u try to access a page & ur not logged in it redirects u to login page. Then when u log in it takes u to account page. It would be nice for it to take u to the page uwanted to go to originally.
+
    - currently it has /login?next=%2Faccount in url when it tells u to log in. So access this query param & direct user there if it exists
-   - `next_page = request.args.get('next')` - if u used args[0] it would throw an error if there were none, so instead use get() method.
+   - `next_page = request.args.get('next')` - if u used args[0] it would throw an error if there were none, so instead use get() method - returns None if not exist
+
+## 7. Edit User Account and Profile Picture
+
+- finishing user account page for updating info & add ability to upload profile pic.
+
+1. goto account.html template and add some jinja for username and email. then a link to the avatar imagewhich we set in routes
+2. goto routes.py to account route at bottom & set image:
+   - `image_file = url_for('static', filename='profile_pics/' + current_user.image_file )`
+   - `return render_template('account.html', title="Account", image_file=image_file)`
+   - now in template we can use image file as source: `<img class="rounded-circle account-img" src="{{ image_file }}">`
