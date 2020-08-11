@@ -533,3 +533,7 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - add usual conditionalsin routes to validate form when posted:`if form.validate_on_submit():` etc
    - add code to create_post.html template - copy across login template starting at 1st div that wraps the form
    - now add link in nav bar in layout.html
+3. Now save posts to db and display on home page.
+   - in routes, `post = Post(title=form.title.data, content=form.content.data, author=current_user)` - u can also use user_id instead of author, both acceptable; then do the db.session.add(post) and db.session.commit() -> post now added to db
+   - now remove the dummy data we had at top of routes file
+   - and at top, where we were passing dummy data to home template, add data from db: add this b4 render_template: `posts = Post.query.all()`
