@@ -537,3 +537,6 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - in routes, `post = Post(title=form.title.data, content=form.content.data, author=current_user)` - u can also use user_id instead of author, both acceptable; then do the db.session.add(post) and db.session.commit() -> post now added to db
    - now remove the dummy data we had at top of routes file
    - and at top, where we were passing dummy data to home template, add data from db: add this b4 render_template: `posts = Post.query.all()`
+   - test it by making a post: turns out we were outputting user object instead of username. Also date is putting out time too. Also want to put user avatar next to post
+   - home.html: we were printing out `{{ post.author }}` change to `{{ post.author.username }}`
+   - to display just date (no time): as it's an object we can use strftime method: `{{ post.date_posted.strftime('%d-%m-%Y') }}`
