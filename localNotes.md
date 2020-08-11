@@ -555,6 +555,7 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - then on home.html, make sure link points to the post.html page: `<h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>`
 
 5. Update Post
+
    - create route `@app.route('/post/<int:post_id>/update')` with def update_post(post_id):
    - needs @login_required
    - grab post as before and `if post.author != current_user:` then abort(403) : 403 is forbidden route - import from Flask
@@ -562,3 +563,8 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - we want title/content filled with existing data. Also form should say Update Post: pass in legend='Update Post' to the route (& add simlr to new post route: `legend="New Post"`)
    - and modify ceate_post.html to output legend above.
    - and under where we create the form add `form.title.data = post.title` and for content to populate the form
+
+6. Add links to update and delete route to template (post.html)
+   - for delete confirm use bootstrap modal
+   - create delete_post route
+   -
