@@ -515,5 +515,20 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
     - app.root_path gives us full path up to package dir (needs import os)
 
 6. How to scale down image sizes automatically.
+
    - use package called Pillow pipenv install Pillow (capital P)
-   - import into routes
+   - import into routes: `from PIL import Image`
+
+## 8. Adding Posts
+
+    - CRUD
+
+1. Create route in routes file: /post/new, to render a template (which we create later). NB @login_required decorator
+   - return render_template('create_post', title=New Post")
+2. Create the template & to start paste in the about page code to extend layout.html etc., removing h1 tag text
+   - template is to be a form for posting new posts
+   - so create one in forms.py file called class PostForm(FlaskForm):
+   - create instance of this form in the route via `form = PostForm()` & pass it into the create_post.html template via `form=form`
+   - as we are letting a form post back to this route we need to accept a POST request: add `methods=['GET', 'POST']` to decorator
+   - add usual conditionalsin routes to validate form when posted:`if form.validate_on_submit():` etc
+   - add code to create_post.html template - copy across login template starting at 1st div that wraps the form
