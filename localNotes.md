@@ -545,6 +545,7 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
 ## At this it's working fine as a basic blog. There is always functionality to add tho' so we continue. Update and delete posts:
 
 4. Create a route that takes us to a specific post page.
+
    - ie add id to route, eg `@app.route('/post/<int:post_id>')` where we specify the id as an integer
    - then function is def post(post_id):
    - then we can use this `post = Post.query.get(post_id)` **BUT** will instead use `get_or_404`: `post = Post.query.get_or_404(post_id)`
@@ -552,3 +553,12 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
      - `return render_template('post.html', title=post.title, post=post)`
    - now create the post.html template: copy from home.html and modify - get rid of for loop as there's only 1 post.
    - then on home.html, make sure link points to the post.html page: `<h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>`
+
+5. Update Post
+   - create route `@app.route('/post/<int:post_id>/update')` with def update_post(post_id):
+   - needs @login_required
+   - grab post as before and `if post.author != current_user:` then abort(403) : 403 is forbidden route - import from Flask
+   - reuse form above: `form = PostForm()` and template similar to crate_post template.
+   - we want title/content filled with existing data. Also form should say Update Post: pass in legend='Update Post' to the route (& add simlr to new post route: `legend="New Post"`)
+   - and modify ceate_post.html to output legend above.
+   - and under where we create the form add `form.title.data = post.title` and for content to populate the form
