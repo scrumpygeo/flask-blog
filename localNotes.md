@@ -532,3 +532,4 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - as we are letting a form post back to this route we need to accept a POST request: add `methods=['GET', 'POST']` to decorator
    - add usual conditionalsin routes to validate form when posted:`if form.validate_on_submit():` etc
    - add code to create_post.html template - copy across login template starting at 1st div that wraps the form
+   - now add link in nav bar in layout.html
