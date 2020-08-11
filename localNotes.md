@@ -540,3 +540,15 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - test it by making a post: turns out we were outputting user object instead of username. Also date is putting out time too. Also want to put user avatar next to post
    - home.html: we were printing out `{{ post.author }}` change to `{{ post.author.username }}`
    - to display just date (no time): as it's an object we can use strftime method: `{{ post.date_posted.strftime('%d-%m-%Y') }}`
+   - to display user image: `<img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" alt="">`
+
+## At this it's working fine as a basic blog. There is always functionality to add tho' so we continue. Update and delete posts:
+
+4. Create a route that takes us to a specific post page.
+   - ie add id to route, eg `@app.route('/post/<int:post_id>')` where we specify the id as an integer
+   - then function is def post(post_id):
+   - then we can use this `post = Post.query.get(post_id)` **BUT** will instead use `get_or_404`: `post = Post.query.get_or_404(post_id)`
+     - if u dont get post with that id u get 404: page doesnt exist.
+     - `return render_template('post.html', title=post.title, post=post)`
+   - now create the post.html template: copy from home.html and modify - get rid of for loop as there's only 1 post.
+   - then on home.html, make sure link points to the post.html page: `<h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>`
