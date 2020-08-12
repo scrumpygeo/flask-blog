@@ -636,3 +636,9 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
      - add another conditional to style current page differently: with filled in btn class: btn-info
 
 5. put newer posts at top: goto routes, add `order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)` to Post.query line in home route
+
+6. Build a route that will display posts from a partic user.
+   - copy of home route with modifs
+   - use home template as starting point to create user-posts template. Only diff is that it has heading saying whose page it is.
+   - add this link to href in hom, post and user_posts templates `{{ url_for('post', post_id=post.id) }}` - make DRY in later video
+   - in user_posts template we also need to change pagination links as they are no longer linking to home page. url_for() links to user_posts route; also pass in username.
