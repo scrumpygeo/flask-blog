@@ -567,4 +567,64 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
 6. Add links to update and delete route to template (post.html)
    - for delete confirm use bootstrap modal
    - create delete_post route
-   -
+
+## 9. PAGINATION &
+
+- so we dont show too many posts at once => affecting performance; - Flask sqlalchemy has paginate method to help us do this
+- also sort from newest to oldest
+
+1. so add more posts from different users so we can see what pagination looks like
+2. Flask sqlalchemy has paginate method to help us paginate.
+
+   - Up to now query was like this:
+
+```
+          posts = Post.query.all()
+          for post in posts:
+            print(post)
+
+    instead we can do:
+
+          posts = Post.query.paginate()
+
+          posts is now a pagination object with separate attributes & methods(do dir(posts) to see)
+
+          posts.page tells u page ur currently on.
+          posts.total - total nr pages in whole thing
+
+          -- in cmd line in pipenv type python then >>> from flaskblog.models import Post
+                                               then >>> posts = Post.query.paginate()
+                                               then     dir(posts)
+         - and u get  'has_next', 'has_prev', 'items', 'iter_pages', 'next', 'next_num', 'page', 'pages',
+                      'per_page', 'prev', 'prev_num', 'query', 'total'
+
+              then if u type >>> posts.per_page  u get 20, = default
+
+    So to print out posts now u do
+
+            for post in posts.items:
+              print(post)
+
+    for next page u do
+          posts = Post.query.paginate(page=2)  & rerun the loop
+```
+
+    - if default of 20 is too much for page length, pass in per_page:
+        - posts = Post.query.paginate(per_page=10)
+        to get next page:
+        - posts = Post.query.paginate(per_page=10, page=2)
+
+3. in @app.route('/) for home page: replace `posts = Post.query.all()` with
+   `posts = Post.query.paginate(per_page=5)`
+
+   - we get the page nr we are at from the parameters (url):`page = request.args.get('page', 1, type=int)` where 1 is default page we set
+   - type=int causes it to throw a value error if sb tries to put a non integer in.
+   - now we pass the page into the query via page=page: `posts = Post.query.paginate(page=page, per_page=5)`
+
+4. make change to home.html template & instead of `{% for post in posts %}` do `{% for post in posts.items %}`
+   - now reload and we only have 5 posts on home page.
+   - add `?page=2` to url to get page 2
+   - update template so we can see links to other pages.
+   - temporarily change per_page to =2 instead of 5 to give us more pages to play with.
+   - for page in posts.iter_pages():
+   - after the endfor, add another for loop then we check what page_num is, if it's a number put a link, if it says 'None' put an elipsis, ...
