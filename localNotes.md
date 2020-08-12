@@ -628,3 +628,8 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - temporarily change per_page to =2 instead of 5 to give us more pages to play with.
    - for page in posts.iter_pages():
    - after the endfor, add another for loop then we check what page_num is, if it's a number put a link, if it says 'None' put an elipsis, ...
+     - the elipsis is where u are not printing all the numbers (and correspond to 'None' in the code)
+   - modify it so it shows fewer pages at bottom (hidden by elipses)
+   - NB params to iter-pages: left_edge=1, right_edge=1 - how many pages show up on l and rhs
+     - left_current=1, right_current=2 how many pages l and r of current show up
+     - add another conditional to style current page differently: with filled in btn class: btn-info
