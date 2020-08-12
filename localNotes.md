@@ -622,6 +622,7 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - now we pass the page into the query via page=page: `posts = Post.query.paginate(page=page, per_page=5)`
 
 4. make change to home.html template & instead of `{% for post in posts %}` do `{% for post in posts.items %}`
+
    - now reload and we only have 5 posts on home page.
    - add `?page=2` to url to get page 2
    - update template so we can see links to other pages.
@@ -633,3 +634,5 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - NB params to iter-pages: left_edge=1, right_edge=1 - how many pages show up on l and rhs
      - left_current=1, right_current=2 how many pages l and r of current show up
      - add another conditional to style current page differently: with filled in btn class: btn-info
+
+5. put newer posts at top: goto routes, add `order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)` to Post.query line in home route
