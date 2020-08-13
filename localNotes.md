@@ -670,3 +670,10 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
 3. in routes.py, reset_password route
 
 4. Create reset_request.html template & copy in login template code to start with and modify
+
+5. create route where user actually resets pwd (as opposed to request to reset): def reset_token(token):
+
+   - test token we get back is active
+   - get this token from url
+
+6. create reset_token.html template and paste in reset_request form stuff for modif.
