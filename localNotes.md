@@ -642,3 +642,31 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - use home template as starting point to create user-posts template. Only diff is that it has heading saying whose page it is.
    - add this link to href in hom, post and user_posts templates `{{ url_for('post', post_id=post.id) }}` - make DRY in later video
    - in user_posts template we also need to change pagination links as they are no longer linking to home page. url_for() links to user_posts route; also pass in username.
+
+## 10 - Email and Password Reset
+
+    - generate secure time sensitive token for an individual
+    - use itsdangerous
+    - in idle:
+        - `from itsdangerous import TimedJSONWebSignatureSerializer as Serializer`
+        - s = Serializer('secret', 30)     # 30 sec expiration time
+        - token = s.dumps({'user_id': 1}).decode('utf-8')
+        - and run. if u type 'token' u get a big string back
+        - to check if it's a valid method use loads() method as long as it's less thant 30" or whatever your exp time was:
+        - s.loads(token)   # returns {'user_id': 1} ; wait too long and u get `Signature expired`
+
+1. goto models.py and goto User model & `from itsdangerous import TimedJSONWebSignatureSerializer as Serializer`
+
+   - we also need our app secret key so import `app`
+   - create def get_reset_token(self, sec=1800):
+   - create def verify_reset_token(token): but no expiry param; NB has @staticmethod to tell python not to expect self.
+
+2. create route so user can reset pwd
+
+   - need 2 new (v simple) forms:
+     - i. class RequestResetForm(): ; also validate a/c exists for address
+     - ii. class ResetPasswordForm(FlaskForm):
+
+3. in routes.py, reset_password route
+
+4. Create reset_request.html template & copy in login template code to start with and modify
