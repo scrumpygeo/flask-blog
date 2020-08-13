@@ -677,3 +677,32 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - get this token from url
 
 6. create reset_token.html template and paste in reset_request form stuff for modif.
+
+7. What happens when we submit the above forms we've created (request for reset and actual reset.)
+
+   - these forms return back to same route they submitted from.
+   - -> add validate on submit conditional to our routes to handle form submission.
+
+8. create empty function to create emails while he discusses what we need to do so: def send_reset_email(user):
+   - install flask_mail: `pipenv install flask-mail`
+   - in `__init__.py` add `from flask_mail import Mail` and also set some constants so app knows how to send mail:
+     - this eg uses google mail but we can use any other :
+
+```
+  NB import os at top
+
+      app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+      app.config['MAIL_PORT'] = 587
+      app.config['MAIL_USE_TLS'] = True
+      app.config['MAIL_USERNAME'] = os.environ.get('EMAIL_USER')
+      app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
+      Mail(app)  # to initialize it
+
+```
+
+    - put email and password in environment variable to hide them - in windows env vars for eg.
+
+    - now back to send_reset_email(user) method
+    - `_external=True` is so we get an absolute url rather than a relative one.
+
+9. add link to reset pwd page: login template
