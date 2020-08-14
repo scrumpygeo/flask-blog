@@ -726,4 +726,7 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
 4. in users package create utils.py file for odds and ends re users eg reset pwd stuff.
 
 5. start adding stuff to users/route. No longer using global @ var to create the routes. Create it specifically for this blueprint and register it at a later time.
-   - so instead of @app.route in the users route, we have users instantiated at top and user @users.route instead.
+
+   - so instead of @app.route decorator in the users route, we have users instantiated at top and user @users.route instead.
+
+   - repeat for post package routes decorator and again for main package.
