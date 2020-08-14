@@ -706,3 +706,24 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
     - `_external=True` is so we get an absolute url rather than a relative one.
 
 9. add link to reset pwd page: login template
+
+# 11 Blueprints
+
+    - move config vars to their own files
+    - create application factory: eg 1 app for prod and 1 for test
+
+1. routes file too big with unrelated routes.
+
+   - create new folder called users.
+   - create another new folder called posts
+   - create yetanother new folder called main as a catch all for the rest
+   - make all the above 3 dirs to be **packages** as well, so each gets a `__init__.py` file, which can be empty.
+
+2. within each of the above 3 packages we created we will makea routes.py file to only contain routes that deal with that package functionality
+
+3. in users and posts packages we also want a forms.py file to keep forms separate.
+
+4. in users package create utils.py file for odds and ends re users eg reset pwd stuff.
+
+5. start adding stuff to users/route. No longer using global @ var to create the routes. Create it specifically for this blueprint and register it at a later time.
+   - so instead of @app.route in the users route, we have users instantiated at top and user @users.route instead.
