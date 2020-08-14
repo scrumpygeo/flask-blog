@@ -19,7 +19,7 @@ def new_post():
         db.session.add(post)
         db.session.commit()
         flash('Your post has been created!', 'success')
-        return redirect(url_for('home'))
+        return redirect(url_for('main.home'))
     return render_template('create_post.html', title="New Post", form=form, legend="New Post")
 
 
@@ -42,7 +42,7 @@ def update_post(post_id):
         #  no add necessary cos record was already in db
         db.session.commit()
         flash('Your post has been updated', 'success')
-        return redirect(url_for('post', post_id=post.id))
+        return redirect(url_for('posts.post', post_id=post.id))
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content

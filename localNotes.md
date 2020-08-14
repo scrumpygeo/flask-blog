@@ -735,9 +735,11 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
 6. repeat above for our forms. Most goes into users/form and one goes into posts/form. Then delete the old routes and forms files
 
 7. goto application's `__init__.py` file, replace the old `from flaskblog import routes` with: `from flaskblog.users.routes import users`
+
    - then register with `app.register_blueprint(users)`
    - now repeat with the other blueprints: posts, main
 
-```
-
-```
+8. up to now we've been using url_for() to link to all our routes. Now we need to change all of those to be the url for the relevant blueprint
+   - used to be function name of the route.
+   - NOW it's the blueprint name followed by the function name.
+   - so need to search thru whole application and change these: in vscode: Press Ctrl+Shift+F or select Edit | Find | Find in Path from the main menu.
