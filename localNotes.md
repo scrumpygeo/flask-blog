@@ -740,7 +740,21 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - now repeat with the other blueprints: posts, main
 
 8. up to now we've been using url_for() to link to all our routes. Now we need to change all of those to be the url for the relevant blueprint
+
    - used to be function name of the route.
    - NOW it's the blueprint name followed by the function name.
    - so need to search thru whole application and change these: in vscode: Press Ctrl+Shift+F or select Edit | Find | Find in Path from the main menu.
-     - eg url_for('main.home') instead of url_for('home') etc. some will have post prefix and others users prefix.
+     - eg url_for('main.home') instead of url_for('home') etc. some will have post prefix and others users prefix. Do this for whole project
+   - one that is easy to miss: in init.py, change `login_manager.login_view = 'login'` to `login_manager.login_view = 'users.login'`
+
+9. Put config values for this app in their own file to aid unit testing later.
+
+   - also move creation of app into a function so we can create instances of our application with different configurations.
+
+   - i. move all config into a config file. Create file, config.py in top level of our app
+   - ii. take all our config values from init.py and put them in config.py, but making it class-based so we can use inheritance to make new configs etc:
+     - create class Config:
+     - put in it anything with app.config in it then remove the app.config part.
+   - iii. next move secret key and db uri to an env var. - in windows put in system vars because u use user w/o admin
+     SECRET_KEY = `92f27f2712769bfb901be18e43cbfa8e`
+     SQLALCHEMY_DATABASE_URI = sqlite:///site.db
