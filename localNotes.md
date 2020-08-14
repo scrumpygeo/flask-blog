@@ -730,3 +730,6 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - so instead of @app.route decorator in the users route, we have users instantiated at top and user @users.route instead.
 
    - repeat for post package routes decorator and again for main package.
+   - all that's left in the old routes file are the imports which we will clean up later
+
+6. repeat above for our forms. Most goes into users/form and one goes into posts/form.
