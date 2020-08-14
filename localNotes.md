@@ -743,3 +743,4 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - used to be function name of the route.
    - NOW it's the blueprint name followed by the function name.
    - so need to search thru whole application and change these: in vscode: Press Ctrl+Shift+F or select Edit | Find | Find in Path from the main menu.
+     - eg url_for('main.home') instead of url_for('home') etc. some will have post prefix and others users prefix.
