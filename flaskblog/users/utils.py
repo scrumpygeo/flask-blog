@@ -1,9 +1,9 @@
 import os
 import secrets
 from PIL import Image
-from flask import url_for
+from flask import url_for, current_app
 from flask_mail import Message
-from flaskblog import app, mail
+from flaskblog import mail
 
 
 def save_picture(form_picture):
@@ -13,7 +13,7 @@ def save_picture(form_picture):
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(
-        app.root_path, 'static/profile_pics', picture_fn)
+        current_app.root_path, 'static/profile_pics', picture_fn)
     # resize image before we save it:
     output_size = (125, 125)   # tuple of size we want
     i = Image.open(form_picture)

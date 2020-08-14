@@ -758,3 +758,8 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - iii. next move secret key and db uri to an env var. - in windows put in system vars because u use user w/o admin
      SECRET_KEY = `92f27f2712769bfb901be18e43cbfa8e`
      SQLALCHEMY_DATABASE_URI = sqlite:///site.db
+
+   - iv. move creation of app to function. In init.py file, at bottom make create_app(config_class=Config) function which takes as arg the config
+
+   - v. do another find app in models.py and users/utils.py & remove; then add from flask import current_app and where we used app b4, now use current_app
+     - then in run.py file, substitute `from flaskblog import app` with `from flaskblog import create_app`, then create out application ( u can pass any config in here (currently uses our default config))
