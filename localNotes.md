@@ -763,3 +763,5 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
 
    - v. do another find app in models.py and users/utils.py & remove; then add from flask import current_app and where we used app b4, now use current_app
      - then in run.py file, substitute `from flaskblog import app` with `from flaskblog import create_app`, then create out application ( u can pass any config in here (currently uses our default config))
+
+10. We could also move the templates into the corresponding blueprints (for posts, users, main) but he prefers to keep templates together and if necessary make subfolders within the directory.
