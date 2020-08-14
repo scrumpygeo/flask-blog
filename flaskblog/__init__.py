@@ -22,4 +22,10 @@ app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
 mail = Mail(app)
 
 # this must be AFTER app initialization:
-from flaskblog import routes
+from flaskblog.users.routes import users
+from flaskblog.posts.routes import posts
+from flaskblog.main.routes import main
+
+app.register_blueprint(users)
+app.register_blueprint(posts)
+app.register_blueprint(main)

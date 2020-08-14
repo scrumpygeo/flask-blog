@@ -732,4 +732,12 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
    - repeat for post package routes decorator and again for main package.
    - all that's left in the old routes file are the imports which we will clean up later
 
-6. repeat above for our forms. Most goes into users/form and one goes into posts/form.
+6. repeat above for our forms. Most goes into users/form and one goes into posts/form. Then delete the old routes and forms files
+
+7. goto application's `__init__.py` file, replace the old `from flaskblog import routes` with: `from flaskblog.users.routes import users`
+   - then register with `app.register_blueprint(users)`
+   - now repeat with the other blueprints: posts, main
+
+```
+
+```
