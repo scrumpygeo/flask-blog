@@ -765,3 +765,18 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
      - then in run.py file, substitute `from flaskblog import app` with `from flaskblog import create_app`, then create out application ( u can pass any config in here (currently uses our default config))
 
 10. We could also move the templates into the corresponding blueprints (for posts, users, main) but he prefers to keep templates together and if necessary make subfolders within the directory.
+
+## 12. CUSTOM ERROR PAGES
+
+1. create new blueprint folder called errors with an `__init__.py` file in it
+
+2. stick this in it for 404, 403 and 500:
+
+```
+    @errors.app_errorhandler(500)
+    def error_404(error):
+        # in Flask u can return a 2nd value that is the status code (default is 200):
+        return render_template('errors/404.html'), 404
+```
+
+3. create new folder in templates called errors and 3 files in it for each error code, eg 403.html etc
