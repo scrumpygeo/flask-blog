@@ -780,3 +780,5 @@ Next: `https://www.youtube.com/watch?v=CSHx6eCkmv0`
 ```
 
 3. create new folder in templates called errors and 3 files in it for each error code, eg 403.html etc
+
+4. register this with the application in the init.py file.
