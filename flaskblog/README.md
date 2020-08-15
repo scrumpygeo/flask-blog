@@ -2,6 +2,8 @@
 
 App from an excellent and in depth Flask development course by Corey Schafer
 
+This version uses pipenv for packaging.
+
 Development followed these stages:
 
 1. Start off writing basic app as a module.
